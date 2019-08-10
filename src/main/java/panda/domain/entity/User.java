@@ -3,6 +3,7 @@ package panda.domain.entity;
 import panda.domain.entity.enums.Role;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -12,7 +13,8 @@ public class User extends BaseEntity {
     private String password;
     private String email;
     private Role role;
-    private Receipt receipt;
+    private List<Package> packages;
+    private List<Receipt> receipts;
 
     @Column(name = "username", unique = true, nullable = false)
     public String getUsername() {
@@ -51,13 +53,21 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Receipt getReceipt() {
-        return receipt;
+    @OneToMany(mappedBy = "recipient", fetch = FetchType.EAGER)
+    public List<Package> getPackages() {
+        return packages;
     }
 
-    public void setReceipt(Receipt receipt) {
-        this.receipt = receipt;
+    public void setPackages(List<Package> packages) {
+        this.packages = packages;
     }
 
+    @OneToMany(mappedBy = "recipient", fetch = FetchType.EAGER)
+    public List<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(List<Receipt> receipts) {
+        this.receipts = receipts;
+    }
 }

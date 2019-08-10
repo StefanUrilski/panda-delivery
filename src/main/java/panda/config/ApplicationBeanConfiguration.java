@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 public class ApplicationBeanConfiguration {
+    private static final String PERSISTENCE_UNIT_NAME = "panda_delivery";
 
     @Produces
     public ModelMapper modelMapper() {
@@ -16,7 +17,7 @@ public class ApplicationBeanConfiguration {
     @Produces
     public EntityManager entityManager() {
         return Persistence
-                .createEntityManagerFactory("panda_delivery")
+                .createEntityManagerFactory(PERSISTENCE_UNIT_NAME)
                 .createEntityManager();
     }
 }

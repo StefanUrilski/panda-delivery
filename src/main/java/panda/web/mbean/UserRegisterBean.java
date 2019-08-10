@@ -7,13 +7,14 @@ import panda.service.UserService;
 import panda.util.ValidationUtil;
 import panda.util.ValidationUtilImpl;
 
-import javax.faces.context.ExternalContext;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 
 @Named(value = "register")
+@RequestScoped
 public class UserRegisterBean {
 
     private UserRegisterBindingModel userRegister;
@@ -44,19 +45,13 @@ public class UserRegisterBean {
     }
 
     public void submitUser() throws IOException {
-        if (! userRegister.getPassword().equals(userRegister.getConfirmPassword())) {
-            return;
-        }
+        if (! userRegister.getPassword().equals(userRegister.getConfirmPassword())) { return; }
 
-        if (! validationUtil.isValid(userRegister)) {
-            return;
-        }
+        if (! validationUtil.isValid(userRegister)) { return; }
 
         UserServiceModel user = modelMapper.map(userRegister, UserServiceModel.class);
 
-        if (! userService.saveUser(user)) {
-            return;
-        }
+        if (! userService.saveUser(user)) { return; }
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("/");
     }

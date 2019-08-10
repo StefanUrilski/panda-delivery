@@ -7,8 +7,8 @@
     <persistence-unit  name="panda_delivery" transaction-type="RESOURCE_LOCAL">
         <properties>
             <property name="hibernate.connection.url"
-                      value="jdbc:mysql://localhost:3306/panda_delivery?useSSL=false&amp;
-                        createDatabaseIfNotExist=true&amp;serverTimezone=UTC"/>
+                      value="jdbc:mysql://localhost:3306/panda_delivery?useSSL=false&amp;serverTimezone=UTC&amp;
+                        createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="1234"/>

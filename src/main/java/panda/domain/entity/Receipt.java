@@ -33,7 +33,7 @@ public class Receipt extends BaseEntity {
         this.issuedOn = issuedOn;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public User getRecipient() {
         return recipient;
     }

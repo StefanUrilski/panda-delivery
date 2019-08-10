@@ -36,4 +36,20 @@ public class UserRepositoryImpl implements UserRepository {
                 .createQuery("select u from User as u", User.class)
                 .getResultList();
     }
+
+    @Override
+    public long count() {
+        return entityManager.createQuery("select u from User as u")
+                .getResultList().size();
+    }
+
+    @Override
+    public User exists(String username, String password) {
+        return entityManager
+                .createQuery("select u from User as u " +
+                        "where u.username = :username and u.password = :password", User.class)
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .getSingleResult();
+    }
 }
