@@ -53,6 +53,6 @@ public class UserLoginBean {
         HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
         session.setAttribute("user", modelMapper.map(userServiceModel, LoggedUserViewModel.class));
 
-        context.getExternalContext().redirect("/faces/view/user-home.xhtml");
+        context.getExternalContext().redirect("/faces/view/index.xhtml");
     }
 }

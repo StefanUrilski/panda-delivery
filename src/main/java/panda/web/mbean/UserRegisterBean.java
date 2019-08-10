@@ -3,6 +3,9 @@ package panda.web.mbean;
 import org.modelmapper.ModelMapper;
 import panda.domain.model.binding.UserRegisterBindingModel;
 import panda.domain.model.service.UserServiceModel;
+import panda.repository.PackageRepository;
+import panda.service.PackageService;
+import panda.service.ReceiptService;
 import panda.service.UserService;
 import panda.util.ValidationUtil;
 import panda.util.ValidationUtilImpl;
@@ -21,6 +24,8 @@ public class UserRegisterBean {
 
     private ModelMapper modelMapper;
     private UserService userService;
+    private ReceiptService receiptService;
+    private PackageService packageService;
     private ValidationUtil validationUtil;
 
     public UserRegisterBean() {
@@ -30,10 +35,15 @@ public class UserRegisterBean {
 
     @Inject
     public UserRegisterBean(ModelMapper modelMapper,
-                            UserService userService) {
+                            UserService userService,
+                            ReceiptService receiptService,
+                            PackageService packageService) {
         this();
         this.modelMapper = modelMapper;
         this.userService = userService;
+        this.receiptService = receiptService;
+        this.packageService = packageService;
+
     }
 
     public UserRegisterBindingModel getUserRegister() {
@@ -45,13 +55,19 @@ public class UserRegisterBean {
     }
 
     public void submitUser() throws IOException {
-        if (! userRegister.getPassword().equals(userRegister.getConfirmPassword())) { return; }
+        if (!userRegister.getPassword().equals(userRegister.getConfirmPassword())) {
+            return;
+        }
 
-        if (! validationUtil.isValid(userRegister)) { return; }
+        if (!validationUtil.isValid(userRegister)) {
+            return;
+        }
 
         UserServiceModel user = modelMapper.map(userRegister, UserServiceModel.class);
 
-        if (! userService.saveUser(user)) { return; }
+        if (!userService.saveUser(user)) {
+            return;
+        }
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("/");
     }

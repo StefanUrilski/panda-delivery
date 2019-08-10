@@ -53,7 +53,7 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
-    @OneToMany(mappedBy = "recipient", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "recipient")
     public List<Package> getPackages() {
         return packages;
     }
@@ -62,7 +62,7 @@ public class User extends BaseEntity {
         this.packages = packages;
     }
 
-    @OneToMany(mappedBy = "recipient", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "recipient")
     public List<Receipt> getReceipts() {
         return receipts;
     }
