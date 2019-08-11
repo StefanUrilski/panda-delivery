@@ -8,6 +8,8 @@ import panda.domain.model.service.UserServiceModel;
 import panda.repository.UserRepository;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserServiceImpl implements UserService {
 
@@ -22,33 +24,47 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean saveUser(UserServiceModel userServiceModel) {
+    public boolean userRegister(UserServiceModel userServiceModel) {
         userServiceModel.setPassword(DigestUtils.sha256Hex(userServiceModel.getPassword()));
         User user = modelMapper.map(userServiceModel, User.class);
 
-        if (userRepository.count() == 0) {
-            user.setRole(Role.Admin);
-        } else {
-            user.setRole(Role.User);
-        }
+        user.setRole(userRepository.size() == 0 ? Role.Admin : Role.User);
 
         try {
             userRepository.save(user);
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
-        return true;
     }
 
     @Override
-    public UserServiceModel userExist(String username, String password) {
+    public UserServiceModel userLogin(UserServiceModel userService) {
+        User user;
+
         try {
-            User user = userRepository.exists(username, DigestUtils.sha256Hex(password));
-            return modelMapper.map(user, UserServiceModel.class);
+            user = userRepository.findByUsername(userService.getUsername());
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
+
+        if (user == null || !DigestUtils.sha256Hex(userService.getPassword()).equals(user.getPassword())) {
+            return null;
+        }
+
+        return modelMapper.map(user, UserServiceModel.class);
+    }
+
+    @Override
+    public UserServiceModel findUserByUsername(String username) {
+        return modelMapper.map(userRepository.findByUsername(username), UserServiceModel.class);
+    }
+
+    @Override
+    public List<UserServiceModel> findAllUsers() {
+        return this.userRepository.findAll()
+                .stream()
+                .map(u -> this.modelMapper.map(u, UserServiceModel.class))
+                .collect(Collectors.toList());
     }
 }

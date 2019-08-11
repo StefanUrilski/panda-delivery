@@ -4,10 +4,12 @@ import java.util.List;
 
 public interface GenericRepository<Entity, Id> {
 
-    void save(Entity entity);
+    Entity save(Entity entity);
+
+    List<Entity> findAll();
 
     Entity findById(Id id);
 
-    List<Entity> findAll();
+    Long size();
 
 }

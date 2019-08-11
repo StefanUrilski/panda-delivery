@@ -10,6 +10,7 @@ import panda.service.UserService;
 import panda.util.ValidationUtil;
 import panda.util.ValidationUtilImpl;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -24,26 +25,22 @@ public class UserRegisterBean {
 
     private ModelMapper modelMapper;
     private UserService userService;
-    private ReceiptService receiptService;
-    private PackageService packageService;
     private ValidationUtil validationUtil;
 
     public UserRegisterBean() {
-        this.userRegister = new UserRegisterBindingModel();
-        this.validationUtil = new ValidationUtilImpl();
     }
 
     @Inject
     public UserRegisterBean(ModelMapper modelMapper,
-                            UserService userService,
-                            ReceiptService receiptService,
-                            PackageService packageService) {
-        this();
+                            UserService userService) {
         this.modelMapper = modelMapper;
         this.userService = userService;
-        this.receiptService = receiptService;
-        this.packageService = packageService;
+    }
 
+    @PostConstruct
+    private void init() {
+        this.userRegister = new UserRegisterBindingModel();
+        this.validationUtil = new ValidationUtilImpl();
     }
 
     public UserRegisterBindingModel getUserRegister() {
@@ -55,20 +52,14 @@ public class UserRegisterBean {
     }
 
     public void submitUser() throws IOException {
-        if (!userRegister.getPassword().equals(userRegister.getConfirmPassword())) {
-            return;
-        }
+        if (!userRegister.getPassword().equals(userRegister.getConfirmPassword())) { return; }
 
-        if (!validationUtil.isValid(userRegister)) {
-            return;
-        }
+        if (!validationUtil.isValid(userRegister)) { return; }
 
         UserServiceModel user = modelMapper.map(userRegister, UserServiceModel.class);
 
-        if (!userService.saveUser(user)) {
-            return;
-        }
+        if (! userService.userRegister(user)) { return; }
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/faces/view/login.xhtml");
     }
 }

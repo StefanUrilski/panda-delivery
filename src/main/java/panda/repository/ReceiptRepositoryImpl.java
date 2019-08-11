@@ -17,10 +17,12 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     }
 
     @Override
-    public void save(Receipt receipt) {
+    public Receipt save(Receipt receipt) {
         entityManager.getTransaction().begin();
         entityManager.persist(receipt);
         entityManager.getTransaction().commit();
+
+        return receipt;
     }
 
     @Override
@@ -37,5 +39,12 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         return entityManager
                 .createQuery("select r from Receipt as r", Receipt.class)
                 .getResultList();
+    }
+
+    @Override
+    public Long size() {
+        return this.entityManager
+                .createQuery("select count(u) from User u ", Long.class)
+                .getSingleResult();
     }
 }

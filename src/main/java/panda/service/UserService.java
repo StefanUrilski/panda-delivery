@@ -2,9 +2,15 @@ package panda.service;
 
 import panda.domain.model.service.UserServiceModel;
 
+import java.util.List;
+
 public interface UserService {
 
-    boolean saveUser(UserServiceModel userServiceModel);
+    boolean userRegister(UserServiceModel userServiceModel);
 
-    UserServiceModel userExist(String username, String password);
+    UserServiceModel userLogin(UserServiceModel userServiceModel);
+
+    UserServiceModel findUserByUsername(String username);
+
+    List<UserServiceModel> findAllUsers();
 }

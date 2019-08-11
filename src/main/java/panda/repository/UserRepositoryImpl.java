@@ -16,10 +16,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
+
+        return user;
     }
 
     @Override
@@ -38,9 +40,10 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public long count() {
-        return entityManager.createQuery("select u from User as u")
-                .getResultList().size();
+    public Long size() {
+        return this.entityManager
+                .createQuery("select count(u) from User u ", Long.class)
+                .getSingleResult();
     }
 
     @Override
@@ -51,5 +54,17 @@ public class UserRepositoryImpl implements UserRepository {
                 .setParameter("username", username)
                 .setParameter("password", password)
                 .getSingleResult();
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        try {
+            return this.entityManager
+                    .createQuery("select u from User u where u.username = :username", User.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
