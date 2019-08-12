@@ -42,9 +42,9 @@ public class PackageServiceImpl implements PackageService {
     }
 
     @Override
-    public void packageStatusChange(String id) {
+    public void packageStatusChange(String id, Status status) {
         Package aPackage = packageRepository.findById(id);
-        aPackage.setStatus(Status.Shipped);
+        aPackage.setStatus(status);
         changeDeliveryDate(aPackage);
 
         packageRepository.updatePackage(aPackage);
