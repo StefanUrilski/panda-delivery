@@ -54,4 +54,17 @@ public class PackageServiceImpl implements PackageService {
         long days = (System.currentTimeMillis() % 21) + 20;
         aPackage.setEstimatedDeliveryDate(LocalDateTime.now().plusDays(days));
     }
+
+    @Override
+    public PackageServiceModel findPackageById(String id) {
+        Package aPackage;
+        try {
+            aPackage = packageRepository.findById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return modelMapper.map(aPackage, PackageServiceModel.class);
+    }
 }

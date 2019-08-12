@@ -12,4 +12,6 @@ public interface PackageService {
     List<PackageServiceModel> findAllPackagesByStatus(Status status);
 
     void packageStatusChange(String id);
+
+    PackageServiceModel findPackageById(String id);
 }

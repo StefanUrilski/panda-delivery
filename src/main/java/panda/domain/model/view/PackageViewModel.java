@@ -1,17 +1,13 @@
 package panda.domain.model.view;
 
-import panda.domain.entity.enums.Status;
-
-import java.time.LocalDateTime;
-
 public class PackageViewModel {
 
     private String id;
     private String description;
     private Double weight;
     private String shippingAddress;
-    private Status status;
-    private LocalDateTime estimatedDeliveryTime;
+    private String status;
+    private String estimatedDeliveryTime;
     private String recipient;
 
     public String getId() {
@@ -46,19 +42,19 @@ public class PackageViewModel {
         this.shippingAddress = shippingAddress;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public LocalDateTime getEstimatedDeliveryTime() {
+    public String getEstimatedDeliveryTime() {
         return estimatedDeliveryTime;
     }
 
-    public void setEstimatedDeliveryTime(LocalDateTime estimatedDeliveryTime) {
+    public void setEstimatedDeliveryTime(String estimatedDeliveryTime) {
         this.estimatedDeliveryTime = estimatedDeliveryTime;
     }
 
