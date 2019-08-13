@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
@@ -24,17 +23,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="#{pendingBean.packages}" var="aPackage" varStatus="i">
+                    <c:forEach items="#{pendingBean.packages}" var="receipt" varStatus="i">
                         <tr class="row">
                             <th scope="row" class="col-lg-1 d-flex justify-content-center"><h5>#{i.index + 1}</h5></th>
-                            <td class="col-lg-4 d-flex justify-content-center"><h5>#{aPackage.description}</h5></td>
-                            <td class="col-lg-1 d-flex justify-content-center"><h5>#{aPackage.weight} KG</h5></td>
-                            <td class="col-lg-3 d-flex justify-content-center"><h5>#{aPackage.shippingAddress}</h5></td>
-                            <td class="col-lg-2 d-flex justify-content-center"><h5>#{aPackage.recipient}</h5></td>
+                            <td class="col-lg-4 d-flex justify-content-center"><h5>#{receipt.description}</h5></td>
+                            <td class="col-lg-1 d-flex justify-content-center"><h5>#{receipt.weight} KG</h5></td>
+                            <td class="col-lg-3 d-flex justify-content-center"><h5>#{receipt.shippingAddress}</h5></td>
+                            <td class="col-lg-2 d-flex justify-content-center"><h5>#{receipt.recipient}</h5></td>
                             <td class="col-lg-1 d-flex justify-content-center">
                                 <h:form>
                                     <h:commandButton class="btn bg-panda text-white" value="Ship"
-                                                     action="#{pendingBean.changeStatus(aPackage.id)}"/>
+                                                     action="#{pendingBean.changeStatus(receipt.id)}"/>
                                 </h:form>
                             </td>
                         </tr>

@@ -22,11 +22,11 @@
                 <div class="w-25 bg-white">
                     <h2 class="text-center">Pending</h2>
                     <div class="border-panda p-3">
-                        <ui:repeat value="#{homeBean.pendingPackages}" var="aPackage">
+                        <ui:repeat value="#{homeBean.pendingPackages}" var="receipt">
                             <div class="p-2 d-flex justify-content-around">
-                                <h4 class="w-75">#{aPackage.description}</h4>
+                                <h4 class="w-75">#{receipt.description}</h4>
                                 <h:link outcome="package-details" class="btn bg-panda text-white w-25" value="Details">
-                                    <f:param name="id" value="#{aPackage.id}" />
+                                    <f:param name="id" value="#{receipt.id}" />
                                 </h:link>
                             </div>
                         </ui:repeat>
@@ -35,11 +35,11 @@
                 <div class="w-25 bg-white">
                     <h2 class="text-center">Shipped</h2>
                     <div class="border-panda p-3">
-                        <ui:repeat value="#{homeBean.shippedPackages}" var="aPackage">
+                        <ui:repeat value="#{homeBean.shippedPackages}" var="receipt">
                             <div class="p-2 d-flex justify-content-around">
-                                <h4 class="w-75">#{aPackage.description}</h4>
+                                <h4 class="w-75">#{receipt.description}</h4>
                                 <h:link outcome="package-details" class="btn bg-panda text-white w-25" value="Details">
-                                    <f:param name="id" value="#{aPackage.id}" />
+                                    <f:param name="id" value="#{receipt.id}" />
                                 </h:link>
                             </div>
                         </ui:repeat>
@@ -48,11 +48,11 @@
                 <div class="w-25 bg-white">
                     <h2 class="text-center">Delivered</h2>
                     <div class="border-panda p-3">
-                        <ui:repeat value="#{homeBean.deliveredPackages}" var="aPackage">
+                        <ui:repeat value="#{homeBean.deliveredPackages}" var="receipt">
                             <div class="p-2 d-flex justify-content-around">
-                                <h4 class="w-75">#{aPackage.description}</h4>
+                                <h4 class="w-75">#{receipt.description}</h4>
                                 <h:link outcome="package-details" class="btn bg-panda text-white w-25" value="Details">
-                                    <f:param name="id" value="#{aPackage.id}" />
+                                    <f:param name="id" value="#{receipt.id}" />
                                 </h:link>
                             </div>
                         </ui:repeat>
